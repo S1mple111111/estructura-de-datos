@@ -1,16 +1,19 @@
 #EJ 01 Factorial Recursivo
 
-##if
-def factorial_if(n):
+##recursion
+def factorial(n):
     if n < 0:
-        raise ValueError("n no puede ser negativo")
+        raise ValueError("El número debe ser no negativo.")
+    # Caso base
     if n == 0:
         return 1
+    # Caso recursivo
+    return n * factorial(n - 1)
 
-    resultado = 1
-    for i in range(1, n + 1):
-        resultado *= i
-    return resultado
+# Pruebas
+print(f"Factorial(0): {factorial(0)}")    # 1
+print(f"Factorial(5): {factorial(5)}")    # 120
+print(f"Factorial(10): {factorial(10)}")  # 3,628,800 
 
 ##for
 def factorial_for(n):
@@ -36,15 +39,17 @@ def factorial_while(n):
 
 #EJ 02 Suma de Dígitos
 
-##if
-def suma_digitos_if(n):
-    if n < 0:
-        raise ValueError("Debe ser un entero positivo")
+##recursion
+ def suma_digitos(n):
+    # Caso base: un solo dígito
+    if n < 10:
+        return n
+    # Caso recursivo: último dígito + suma del resto
+    return (n % 10) + suma_digitos(n // 10)
 
-    suma = 0
-    for d in str(n):
-        suma += int(d)
-    return suma
+# Pruebas
+print(f"Suma dígitos(1234): {suma_digitos(1234)}") # 10
+print(f"Suma dígitos(98765): {suma_digitos(98765)}") # 35
 
 ##for
 def suma_digitos_for(n):
@@ -63,20 +68,27 @@ def suma_digitos_while(n):
 
 #EJ 03 Búsqueda Binaria Recursiva
 
-##if
+##resursion
 def busqueda_binaria(arr, objetivo, izq, der):
-    if izq > der:                 
+    # Caso base 1: no encontrado
+    if izq > der:
         return -1
-
+    
     medio = (izq + der) // 2
-
-    if arr[medio] == objetivo:    
+    
+    # Caso base 2: encontrado
+    if arr[medio] == objetivo:
         return medio
-    elif objetivo < arr[medio]:   
+    
+    # Caso recursivo
+    if objetivo < arr[medio]:
         return busqueda_binaria(arr, objetivo, izq, medio - 1)
-    else:                         
+    else:
         return busqueda_binaria(arr, objetivo, medio + 1, der)
 
+# Prueba
+lista = [2, 5, 8, 12, 16, 23, 38, 45, 72, 91]
+print(f"Buscar 23: índice {busqueda_binaria(lista, 23, 0, len(lista)-1)}") # 5
 ##for
 def busqueda_binaria_for(arr, objetivo):
     izq = 0
@@ -116,17 +128,25 @@ def busqueda_binaria_while(arr, objetivo):
 
 #EJ 04 Palíndromo Recursivo
 
- ##if
+ ##recursion
 def es_palindromo(texto):
-    texto = texto.replace(" ", "").lower()
-
+    # Preprocesamiento (solo se hace en la primera llamada idealmente)
+    # Aquí lo hacemos simple para cumplir el requisito
+    texto = "".join(texto.lower().split())
+    
+    # Caso base
     if len(texto) <= 1:
         return True
+    
+    # Caso recursivo
+    if texto[0] == texto[-1]:
+        return es_palindromo(texto[1:-1])
+    
+    return False
 
-    if texto[0] != texto[-1]:
-        return False
-
-    return es_palindromo(texto[1:-1])
+# Pruebas
+print(f"'anita': {es_palindromo('anita')}") # True
+print(f"'python': {es_palindromo('python')}") # False
 
 ##for
 def es_palindromo_for(texto):
@@ -155,14 +175,25 @@ def es_palindromo_while(texto):
 
 #EJ 05 Torres de Hanói
 
-##if
-def hanoi_recursivo(n, origen, destino, auxiliar):
-    if n > 0:
-        hanoi_recursivo(n - 1, origen, auxiliar, destino)
-        print(f"Mover disco {n} de {origen} a {destino}")
-        hanoi_recursivo(n - 1, auxiliar, destino, origen)
+##recursion
 
-hanoi_recursivo(3, "A", "C", "B")
+def hanoi(n, origen, destino, auxiliar):
+    # Caso base
+    if n == 0:
+        return
+    
+    # Mover n-1 discos de origen a auxiliar
+    hanoi(n - 1, origen, auxiliar, destino)
+    
+    # Mover el disco más grande a destino
+    print(f"Mover disco {n} de {origen} a {destino}")
+    
+    # Mover los n-1 discos de auxiliar a destino
+    hanoi(n - 1, auxiliar, destino, origen)
+
+# Prueba para n=3 (debe generar 7 movimientos)
+print("--- Torres de Hanói (n=3) ---")
+hanoi(3, "A", "C", "B")
 
 #for
 def hanoi_for(n, origen, destino, auxiliar):
@@ -195,5 +226,47 @@ def hanoi_while(n, origen, destino, auxiliar):
         elif i % 3 == 0:
             print(f"Mover disco de {auxiliar} a {destino}")
         i += 1
-
 hanoi_while(3, "A", "C", "B")
+
+##Multiplicación mediante Sumas
+##recrusion
+def multiplicar(a, b):
+    # Manejo de a == 0
+    if a == 0:
+        return 0
+    # Caso base
+    if b == 0:
+        return 0
+    # Caso recursivo
+    return a + multiplicar(a, b - 1)
+
+# Pruebas
+print(f"Multiplicar(4, 3): {multiplicar(4, 3)}") # 12
+print(f"Multiplicar(6, 6): {multiplicar(6, 6)}") # 36
+
+##for
+def multiplicar_con_for(a, b):
+    # Si b es 0, el rango será vacío y retornará 0 directamente
+    resultado = 0
+    for _ in range(b):
+        resultado += a
+    return resultado
+
+# Pruebas
+print(f"For: 4 * 3 = {multiplicar_con_for(4, 3)}")  # 12
+print(f"For: 7 * 0 = {multiplicar_con_for(7, 0)}")  # 0
+
+##while
+def multiplicar_con_while(a, b):
+    resultado = 0
+    contador = b
+    
+    while contador > 0:
+        resultado += a
+        contador -= 1  # Decrementamos para no crear un bucle infinito
+        
+    return resultado
+
+# Pruebas
+print(f"While: 6 * 6 = {multiplicar_con_while(6, 6)}") # 36
+print(f"While: 0 * 9 = {multiplicar_con_while(0, 9)}") # 0
