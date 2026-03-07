@@ -4,13 +4,10 @@
 def factorial(n):
     if n < 0:
         raise ValueError("El número debe ser no negativo.")
-    # Caso base
     if n == 0:
         return 1
-    # Caso recursivo
     return n * factorial(n - 1)
 
-# Pruebas
 print(f"Factorial(0): {factorial(0)}")    # 1
 print(f"Factorial(5): {factorial(5)}")    # 120
 print(f"Factorial(10): {factorial(10)}")  # 3,628,800 
@@ -41,10 +38,8 @@ def factorial_while(n):
 
 ##recursion
  def suma_digitos(n):
-    # Caso base: un solo dígito
     if n < 10:
         return n
-    # Caso recursivo: último dígito + suma del resto
     return (n % 10) + suma_digitos(n // 10)
 
 # Pruebas
