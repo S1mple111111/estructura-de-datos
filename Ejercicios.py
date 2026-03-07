@@ -69,13 +69,11 @@ def suma_digitos_while(n):
 
 ##resursion
 def busqueda_binaria(arr, objetivo, izq, der):
-    # Caso base 1: no encontrado
     if izq > der:
         return -1
     
     medio = (izq + der) // 2
-    
-    # Caso base 2: encontrado
+  
     if arr[medio] == objetivo:
         return medio
     
@@ -129,8 +127,7 @@ def busqueda_binaria_while(arr, objetivo):
 
  ##recursion
 def es_palindromo(texto):
-    # Preprocesamiento (solo se hace en la primera llamada idealmente)
-    # Aquí lo hacemos simple para cumplir el requisito
+    
     texto = "".join(texto.lower().split())
     
     # Caso base
@@ -144,8 +141,8 @@ def es_palindromo(texto):
     return False
 
 # Pruebas
-print(f"'anita': {es_palindromo('anita')}") # True
-print(f"'python': {es_palindromo('python')}") # False
+print(f"'anita': {es_palindromo('anita')}") 
+print(f"'python': {es_palindromo('python')}") 
 
 ##for
 def es_palindromo_for(texto):
