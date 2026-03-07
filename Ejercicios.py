@@ -47,10 +47,14 @@ print(f"Suma dígitos(1234): {suma_digitos(1234)}") # 10
 print(f"Suma dígitos(98765): {suma_digitos(98765)}") # 35
 
 ##for
-def suma_digitos_for(n):
+def suma_digitos_for_sin_math(n):
+    n = abs(n)
     suma = 0
-    for digito in str(n):
-        suma += int(digito)
+    for _ in range(1000):
+        if n == 0:
+            break
+        suma += n % 10
+        n //= 10
     return suma
 
 ##While
@@ -173,20 +177,15 @@ def es_palindromo_while(texto):
 ##recursion
 
 def hanoi(n, origen, destino, auxiliar):
-    # Caso base
     if n == 0:
         return
     
-    # Mover n-1 discos de origen a auxiliar
     hanoi(n - 1, origen, auxiliar, destino)
     
-    # Mover el disco más grande a destino
     print(f"Mover disco {n} de {origen} a {destino}")
-    
-    # Mover los n-1 discos de auxiliar a destino
+
     hanoi(n - 1, auxiliar, destino, origen)
 
-# Prueba para n=3 (debe generar 7 movimientos)
 print("--- Torres de Hanói (n=3) ---")
 hanoi(3, "A", "C", "B")
 
@@ -241,7 +240,6 @@ print(f"Multiplicar(6, 6): {multiplicar(6, 6)}") # 36
 
 ##for
 def multiplicar_con_for(a, b):
-    # Si b es 0, el rango será vacío y retornará 0 directamente
     resultado = 0
     for _ in range(b):
         resultado += a
@@ -258,7 +256,7 @@ def multiplicar_con_while(a, b):
     
     while contador > 0:
         resultado += a
-        contador -= 1  # Decrementamos para no crear un bucle infinito
+        contador -= 1  
         
     return resultado
 
